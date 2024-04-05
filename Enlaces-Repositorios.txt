@@ -1,0 +1,3 @@
+Ejercicios de programación:
+PedroProfe: https://github.com/PedroProfe/Programacion
+AlexanYernas: https://github.com/alexanyernas/Ejercicios-Practicos
