@@ -4,6 +4,7 @@ package code;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 
@@ -21,7 +22,19 @@ public class Comparacion {
     }
     
     public ArrayList<String> getPalabras(Scanner input){
-        ArrayList<String> letra = new ArrayList<>();
-        return letra;
+        ArrayList<String> palabras = new ArrayList<>();
+        while(input.hasNext()){
+            String next = input.next().toLowerCase();
+            palabras.add(next);
+        }
+        Collections.sort(palabras);
+        ArrayList<String> lista2 = new ArrayList<>();
+        lista2.add(palabras.get(0));
+        for (int i=1; i<palabras.size(); i++){
+            if(!palabras.get(i).equals(palabras.get(i-1))){
+                lista2.add(palabras.get(i));
+            }
+        }
+        return palabras;
     }
 }
