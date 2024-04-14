@@ -1,3 +1,8 @@
+/*
+Primera version del programa.
+Lee dos archivos y determina las palabras unicas
+en cada uno.
+*/
 
 package code;
 
@@ -29,10 +34,12 @@ public class Comparacion {
         }
         Collections.sort(palabras);
         ArrayList<String> lista2 = new ArrayList<>();
-        lista2.add(palabras.get(0));
-        for (int i=1; i<palabras.size(); i++){
-            if(!palabras.get(i).equals(palabras.get(i-1))){
-                lista2.add(palabras.get(i));
+        if(palabras.size() > 0){
+            lista2.add(palabras.get(0));
+            for (int i=1; i<palabras.size(); i++){
+                if(!palabras.get(i).equals(palabras.get(i-1))){
+                    lista2.add(palabras.get(i));
+                }
             }
         }
         return palabras;
