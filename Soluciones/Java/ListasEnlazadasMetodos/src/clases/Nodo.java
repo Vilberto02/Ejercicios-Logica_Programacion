@@ -2,16 +2,18 @@
 package clases;
 
 public class Nodo {
-    int dato;
+    String dato;
     Nodo ap_siguiente;
     
-    public Nodo(int d){
+    //Para agregar un nodo al final de la lista
+    public Nodo(String d){
         this.dato = d;
-        ap_siguiente = null;
+        this.ap_siguiente = null;
     }
     
-    public Nodo(int d, Nodo s){
-        dato = d;
-        ap_siguiente = s;
+    //Para agregar un nodo al inicio de la lista
+    public Nodo(String d, Nodo s){
+        this.dato = d;
+        this.ap_siguiente = s;
     }
 }
