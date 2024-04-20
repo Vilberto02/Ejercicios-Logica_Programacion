@@ -38,7 +38,7 @@ public class ListaEnlazada implements ListaSimple{
         */
         
         if(!estaVacia()){ //estaVacia: True -> !estaVacia: False (No esta vacia)
-            fin.ap_siguiente = new Nodo(elemento); //
+            fin.ap_siguiente = new Nodo(elemento);
             fin = fin.ap_siguiente;
         }else{
             inicio = fin = new Nodo(elemento); //inicio y fin apuntan al mismo elemento, dado que la lista esta vacia.
@@ -48,26 +48,25 @@ public class ListaEnlazada implements ListaSimple{
     
     @Override
     public void insertarEn(int indice, String elemento) {
-        Nodo nuevoNodo = new Nodo(elemento);
-        Nodo anterior, actual;
-        anterior = null;
-        actual = inicio;
-        
-        if (indice == 0){
-            nuevoNodo.ap_siguiente = inicio;
-            inicio = nuevoNodo;
-        }
-        int i=1;
-        while (actual != null && i<indice){
-            anterior = actual;
-            actual = actual.ap_siguiente;
-            i++;
-        }
-        if(actual == null){
-            anterior.ap_siguiente = nuevoNodo;
-        } else{
-            nuevoNodo.ap_siguiente = actual;
-            anterior.ap_siguiente = nuevoNodo;
+        if(indice == 0){
+            agregarAlInicio(elemento);
+        }else{
+            int i=1;
+            Nodo auxiliar, temporal;
+            auxiliar = inicio;
+            temporal = inicio.ap_siguiente;
+            while(temporal != null && i<indice){
+                auxiliar = auxiliar.ap_siguiente;
+                temporal = temporal.ap_siguiente;
+                i++;
+            }
+            if(temporal != null){
+                Nodo nuevoNodo = new Nodo(elemento);
+                nuevoNodo.ap_siguiente = temporal;
+                auxiliar.ap_siguiente = nuevoNodo;
+            } else{
+                agregarAlFinal(elemento);
+            }
         }
     }
     
@@ -115,7 +114,7 @@ public class ListaEnlazada implements ListaSimple{
             auxiliar = auxiliar.ap_siguiente;
             index++;
         }
-        return -1;
+        return index;
     }
 
     @Override
@@ -195,7 +194,7 @@ public class ListaEnlazada implements ListaSimple{
                 Nodo anterior, temporal;
                 anterior = inicio;
                 temporal = inicio.ap_siguiente;
-                while (temporal != null && temporal.dato.equals(elemento)){
+                while (temporal != null && !temporal.dato.equals(elemento)){
                     anterior = anterior.ap_siguiente;
                     temporal = temporal.ap_siguiente;
                 }
