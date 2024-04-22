@@ -19,12 +19,12 @@ public class ConteoVoto {
      */
     public static void main(String[] args) throws FileNotFoundException{
         // TODO code application logic here
-        Scanner entrada = new Scanner(new File("vote.txt"));
+        Scanner entrada = new Scanner(new File("C:\\Users\\Usuario\\Desktop\\Vilberto02 (Git)\\Ejercicios-Logica_Programacion\\Soluciones\\Java\\VotacionOrdenPreferencia\\src\\texto\\vote.txt"));
         ArrayList<Votacion> votaciones = leerArchivo(entrada);
         int ronda = 1;
         boolean hecho = false;
         while(!hecho){
-            System.out.println("Ronda #1"+ ronda);
+            System.out.println("Ronda #"+ ronda);
             Collections.sort(votaciones);
             hecho = unaRonda(votaciones);
             System.out.println("------------------------------");
@@ -46,11 +46,12 @@ public class ConteoVoto {
     
     //Cuenta e informa los votos de cada candidato. Asume que la lista esta ordenada por nombre del candidato.
     public static boolean unaRonda(ArrayList<Votacion> votaciones){
-        String superior = "";
-        String inferior = "";
+        String superior = null;
+        String inferior = null;
         int maximo = 0;
         int minimo = votaciones.size() + 1;
         int indice = 0;
+        System.out.println("Tamanio arreglo: "+votaciones.size());
         while(indice < votaciones.size()){
             String siguiente = votaciones.get(indice).getCandidato();
             int contador = procesarVotos(siguiente, indice, votaciones);
@@ -91,6 +92,8 @@ public class ConteoVoto {
     }
     
     public static void eliminate(String nombre, ArrayList<Votacion> votaciones){
-        
+        for (Votacion v: votaciones){
+            v.eliminar(nombre);
+        }
     }
 }
