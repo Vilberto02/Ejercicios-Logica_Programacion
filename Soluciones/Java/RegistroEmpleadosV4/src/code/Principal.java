@@ -5,7 +5,7 @@
 package code;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import views.RegistroEmpleadosV3;
+import views.RegistroEmpleadosV4;
 
 /**
  *
@@ -19,7 +19,7 @@ public class Principal {
     public static void main(String[] args) {
         // TODO code application logic here
         FlatLightLaf.setup();
-        RegistroEmpleadosV3 login = new RegistroEmpleadosV3();
+        RegistroEmpleadosV4 login = new RegistroEmpleadosV4();
         login.setVisible(true);
     }
     

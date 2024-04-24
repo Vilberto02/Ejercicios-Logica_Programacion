@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Usuario
  */
-public class RegistroEmpleadosV3 extends javax.swing.JFrame {
+public class RegistroEmpleadosV4 extends javax.swing.JFrame {
 
     /**
      * Creates new form listas_simples
@@ -30,7 +30,7 @@ public class RegistroEmpleadosV3 extends javax.swing.JFrame {
     int num = 0;
     
     
-    public RegistroEmpleadosV3() {
+    public RegistroEmpleadosV4() {
         initComponents();
         setTitle("Registro de empleados V3");
         lc=pFound=null;
@@ -463,20 +463,20 @@ public class RegistroEmpleadosV3 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegistroEmpleadosV3.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistroEmpleadosV4.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegistroEmpleadosV3.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistroEmpleadosV4.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegistroEmpleadosV3.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistroEmpleadosV4.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegistroEmpleadosV3.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistroEmpleadosV4.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         FlatLightLaf.setup();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegistroEmpleadosV3().setVisible(true);
+                new RegistroEmpleadosV4().setVisible(true);
             }
         });
     }
