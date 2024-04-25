@@ -4,9 +4,10 @@
  */
 package views;
 
-import code.Nodo;
+import code.NodoPL;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.text.DecimalFormat;
+import java.util.StringTokenizer;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -25,15 +26,15 @@ public class RegistroEmpleadosV4 extends javax.swing.JFrame {
     String[][] data = {};
     
     //Variables Locales
-    public Nodo lc;
-    public Nodo pFound;
+    public NodoPL tope;
+    public NodoPL pFound;
     int num = 0;
     
     
     public RegistroEmpleadosV4() {
         initComponents();
-        setTitle("Registro de empleados V3");
-        lc=pFound=null;
+        setTitle("Registro de empleados V4: Uso de pilas");
+        tope=null;
         
         miModelo = new DefaultTableModel(data, cabecera){
             @Override
@@ -46,9 +47,62 @@ public class RegistroEmpleadosV4 extends javax.swing.JFrame {
         
     }
     
+    private void push(String cod, String nom, String ape, String sex, float suel){
+        NodoPL nuevo = new NodoPL(cod, nom, ape, sex, suel);
+        //Realizando los enlaces correspondientes
+        if(tope == null){
+            nuevo.sig = null;
+        }
+        else{
+            nuevo.sig = tope;
+        }
+        tope = nuevo;
+    }
+    
+    private String pop(){
+        String eliminado = "";
+        NodoPL aux = tope;
+        String c = aux.codigo;
+        String n = aux.nombre;
+        String a = aux.apellidos;
+        String s = aux.sexo;
+        float su = aux.sueldo;
+        eliminado = c + "," + n + "," + a + "," + s + "," + String.valueOf(su);
+        tope = tope.sig;
+        aux.sig = null;
+        return eliminado;
+    }
+    
+    private NodoPL Buscar (NodoPL tope, String cod){
+        NodoPL pos = tope;
+        //Recorriendo la lista para encontrar la informacion
+        while(pos!=null && !cod.equalsIgnoreCase(pos.codigo)){
+            pos = pos.sig;
+        }
+        return pos;
+    }
+    
+    private void mensaje(String data){
+        StringTokenizer st = new StringTokenizer(data, ",");
+        //Partiendo el texto
+        String c = st.nextToken();
+        String n = st.nextToken();
+        String a = st.nextToken();
+        String s = st.nextToken();
+        String su = st.nextToken();
+        String datos = "Eliminando al ultimo dato ingresado\n"+
+                        "Descripcion del dato eliminado: \n"+
+                        "Codigo: "+c+"\n"+
+                        "Nombre: "+n+"\n"+
+                        "Apellidos: "+a+"\n"+
+                        "Sexo: "+s+"\n"+
+                        "Sueldo: "+su+"\n";
+        JOptionPane.showMessageDialog(this, datos);
+    }
+    
     void Habilitar(){
         btnActualizar.setEnabled(true);
-        btnEliminar.setEnabled(true);
+        btnEliminar.setEnabled(true); 
         btnGuardar.setEnabled(false);
     }
     
@@ -72,28 +126,24 @@ public class RegistroEmpleadosV4 extends javax.swing.JFrame {
         String nom="", acum="";
         float suma = 0, mayor = -9999;
         float s;
-        Nodo p;
-
-        if(lc != null){
-            p = lc.enlace;
-            do{
-               s = p.sueldo;
-               if(s>mayor){
-                   mayor = s;
-                   nom = p.nombre + " " + p.apellidos;
-               }
-               suma = suma + s;
-               p=p.enlace;
-            }while(p != lc.enlace);
-
-            //Estableciendo la informacion en el txt
-            TextFieldNombreMayor.setText(nom);
-
-            //Formato del Acumulado
-            DecimalFormat df2 = new DecimalFormat("####.00");
-            acum = df2.format(suma);
-            TextFieldAcumulado.setText(acum);
+        NodoPL p = tope;
+        
+        while(p != null){
+            s = p.sueldo;
+            if(s>mayor){
+                mayor = s;
+                nom = p.nombre + " " + p.apellidos;
+            }
+            suma = suma + s;
+            p = p.sig;
         }
+        //Estableciendo la informacion en el txt
+        TextFieldNombreMayor.setText(nom);
+        
+        //Formato del Acumulado
+        DecimalFormat df2 = new DecimalFormat("####.00");
+        acum = df2.format(suma);
+        TextFieldAcumulado.setText(acum);
     }
     
     void vaciar_tabla(){
@@ -108,86 +158,35 @@ public class RegistroEmpleadosV4 extends javax.swing.JFrame {
     
     public void VerDatos(){
         String cod, nom, ape, se, su;
-        float s;
+        NodoPL aux=tope;
         vaciar_tabla();
-        Nodo p;
-        if(lc!=null)
-        {
-            num=0;
-            p=lc.enlace;
-            do
-            {
-                cod=p.codigo;
-                nom=p.nombre;
-                ape=p.apellidos;
-                se=p.sexo;
-
-                DecimalFormat df2 = new DecimalFormat("####.00");
-                su=df2.format(p.sueldo);
-                num++;
-                Object[] fila={num, cod, nom, ape, se, su};
-                miModelo.addRow(fila);
-
-                p=p.enlace;
-            } while(p!=lc.enlace);
+        NodoPL p;
+        num=Num_elem();
+        while(aux != null){
+            cod=aux.codigo;
+            nom=aux.nombre;
+            ape=aux.apellidos;
+            se=aux.sexo;
+            
+            //Dando formato al sueldo
+            DecimalFormat df2 = new DecimalFormat("####.00");
+            su = df2.format(aux.sueldo);
+            Object[] fila = {num, cod, nom, ape, se, su};
+            num--;
+            miModelo.addRow(fila);
+            aux=aux.sig;
         }
     }
 
     
-    void Eliminar(){
-        Nodo actual;
-        boolean encontrado=false;
-        actual=lc;
-        while((actual.enlace!=lc)&&(!encontrado))
-        {
-            encontrado=actual.enlace.codigo.equalsIgnoreCase(TextFieldCodigo.getText().trim());
-            if(!encontrado){
-                actual=actual.enlace;
-            }
+    private int Num_elem(){
+        int num=0;
+        NodoPL aux=tope;
+        while(aux!=null){
+            num++;
+            aux=aux.sig;
         }
-        encontrado=actual.enlace.codigo.equalsIgnoreCase(TextFieldCodigo.getText().trim());
-        if(encontrado)
-        {
-            Nodo p;
-            p=actual.enlace;
-            if(lc==lc.enlace)   lc=null;
-            else
-            {
-                if(p==lc){
-                    lc=actual;
-                }
-                actual.enlace=p.enlace;
-            }
-        }
-        VerDatos();
-    }
-
-    
-    
-    Nodo Buscar (Nodo lc, String cod){
-        Nodo actual;
-        boolean encontrado=false;
-        actual=lc;
-
-        while((actual.enlace!=lc)&&(!encontrado)){
-            encontrado=actual.enlace.codigo.equalsIgnoreCase(TextFieldCodigo.getText().trim());
-            if(!encontrado){
-                actual=actual.enlace;
-            }
-        }
-
-        return actual.enlace;
-    }
-
-    
-    Nodo InsertarFinal(Nodo lc, String cod, String nom, String ape, String sex, float suel){
-        Nodo nuevo=new Nodo(cod, nom, ape, sex, suel);
-        if(lc!=null){
-            nuevo.enlace=lc.enlace;
-            lc.enlace=nuevo;
-        }
-        lc=nuevo;
-        return lc;
+        return num;
     }
 
     /**
@@ -376,7 +375,7 @@ public class RegistroEmpleadosV4 extends javax.swing.JFrame {
         String sex=cbxSexo.getSelectedItem().toString();
         String suel=TextFieldSueldo.getText();
         //Creando el nodo de la lista en memoria y colocando la informacion
-        lc=InsertarFinal(lc, cod, nom, ape,sex,Float.parseFloat(suel));
+        push(cod, nom, ape,sex,Float.parseFloat(suel));
         LimpiarEntradas();
         VerDatos();
         Resumen();
@@ -401,7 +400,7 @@ public class RegistroEmpleadosV4 extends javax.swing.JFrame {
         if(cod.equalsIgnoreCase("")){
             JOptionPane.showMessageDialog(this,"Ingrese un codigo por favor");
         } else {
-            pFound=Buscar(lc,cod);
+            pFound=Buscar(tope,cod);
             if(pFound!=null){
                 TextFieldNombre.setText(pFound.nombre);
                 TextFieldApellidos.setText(pFound.apellidos);
@@ -421,14 +420,20 @@ public class RegistroEmpleadosV4 extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        Eliminar();
-        LimpiarEntradas();
-        VerDatos();
-        if(lc==null){
-            JOptionPane.showMessageDialog(this, "La lista esta vacia");
+        if(tope == null){
+            JOptionPane.showMessageDialog(this, "La Pila esta vacia");
+            TextFieldCodigo.requestFocus();
+        }else{
+            String dato = pop();
+            mensaje(dato);
+            LimpiarEntradas();
+            VerDatos();
+            if(tope == null){
+                JOptionPane.showMessageDialog(this, "La Pila esta vacia");
+            }
+            Deshabilitar();
+            Resumen();
         }
-        Deshabilitar();
-        Resumen();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestaurarActionPerformed
