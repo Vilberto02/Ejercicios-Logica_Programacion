@@ -100,7 +100,7 @@ public class ListaEnlazada implements ListaSimple{
             auxiliar = auxiliar.ap_siguiente;
             indice++;
         }
-        return indice;
+        return -1;
     }
 
     @Override
@@ -141,6 +141,7 @@ public class ListaEnlazada implements ListaSimple{
             if(i == indice){
                 return auxiliar.dato;
             }
+            auxiliar = auxiliar.ap_siguiente;
             i++;
         }
         return null;

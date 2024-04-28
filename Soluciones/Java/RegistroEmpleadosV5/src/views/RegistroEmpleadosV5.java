@@ -28,7 +28,7 @@ public class RegistroEmpleadosV5 extends javax.swing.JFrame {
     //Variables Locales
     public NodoCL frente,fincola;
     public NodoCL pFound;
-    int num = 0, tam;
+    int num = 0, tam = 0;
     
     
     public RegistroEmpleadosV5() {
@@ -52,7 +52,7 @@ public class RegistroEmpleadosV5 extends javax.swing.JFrame {
         NodoCL nuevo = new NodoCL(cod, nom, ape, sex, suel);
         //Realizando los enlaces correspondientes
         if(frente == null){
-            frente = null;
+            frente = nuevo;
         }
         else{
             fincola.sig = nuevo;
@@ -160,7 +160,7 @@ public class RegistroEmpleadosV5 extends javax.swing.JFrame {
         String cod, nom, ape, se, su;
         NodoCL aux=frente;
         vaciar_tabla();
-        //num = 0;
+        num = 0;
         while(aux != null){
             cod=aux.codigo;
             nom=aux.nombre;
@@ -175,7 +175,7 @@ public class RegistroEmpleadosV5 extends javax.swing.JFrame {
             miModelo.addRow(fila);
             aux=aux.sig;
         }
-        TextFieldTamanio.setText(String.valueOf(num));
+        TextFieldTamanio.setText(String.valueOf(tam));
     }
 
 
@@ -377,7 +377,7 @@ public class RegistroEmpleadosV5 extends javax.swing.JFrame {
         String suel=TextFieldSueldo.getText();
         //Creando el nodo de la lista en memoria y colocando la informacion
         encolar(cod, nom, ape,sex,Float.parseFloat(suel));
-        tam = tam + 1;
+        tam++;
         LimpiarEntradas();
         VerDatos();
         Resumen();

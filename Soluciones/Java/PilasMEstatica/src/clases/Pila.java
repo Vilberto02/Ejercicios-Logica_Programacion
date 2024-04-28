@@ -8,42 +8,46 @@ package clases;
  *
  * @author Usuario
  */
-public class Pila {
+public class Pila implements PilaME{
     int vectorPila[];
     int cima;
     
     public Pila(int tamanio){
         vectorPila = new int[tamanio];
-        cima  = -1; //Para determinar si la pila esta vacia
+        cima = -1;
     }
-    
-    //Metodo PUSH: Empuja los elementos en la pila
-    public void push(int dato){
+
+    @Override
+    public Integer tamanio() {
+        return vectorPila.length;
+    }
+
+    @Override
+    public void apilar(int dato) {
         cima++;
         vectorPila[cima] = dato;
     }
-    
-    //Metodo POP: Extraer un elemento de la pila
-    public int pop(){
+
+    @Override
+    public int desapilar() {
         int fuera = vectorPila[cima];
         cima--;
         return fuera;
     }
-    
-    //Metodo para saber si la pila esta vacia
-    public boolean estaVacia(){
-        return cima == -1;
+
+    @Override
+    public int cima() {
+        return vectorPila[cima];
+    }
+
+    @Override
+    public boolean estaVacia() {
+        return cima  == -1;
     }
     
-    //Metodo para saber si la pila esta llena
+    @Override
     public boolean estaLlena(){
         return vectorPila.length-1 == cima;
     }
     
-    //Metodo para saber que elemento se encuentra en la cima
-    public int cimaPila(){
-        return vectorPila[cima];
-    }
-    
-    //Metodo para saber el tamanio de la pila
 }
