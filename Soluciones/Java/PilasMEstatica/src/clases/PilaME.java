@@ -15,4 +15,7 @@ public interface PilaME {
     public int cima();
     public boolean estaVacia();
     public boolean estaLlena();
+    public void vaciarPila();
+    public void mostrarPila();
+    public int ultimoPila();
 }

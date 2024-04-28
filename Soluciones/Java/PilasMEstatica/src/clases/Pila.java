@@ -9,12 +9,14 @@ package clases;
  * @author Usuario
  */
 public class Pila implements PilaME{
+    final int MAX;
     int vectorPila[];
     int cima;
     
     public Pila(int tamanio){
-        vectorPila = new int[tamanio];
-        cima = -1;
+        this.MAX = tamanio-1;
+        this.vectorPila = new int[tamanio];
+        this.cima = -1;
     }
 
     @Override
@@ -24,15 +26,24 @@ public class Pila implements PilaME{
 
     @Override
     public void apilar(int dato) {
-        cima++;
-        vectorPila[cima] = dato;
+        if(cima == MAX){
+            System.out.println("La pila esta llena. No se puede insertar elementos.");
+        }else{
+            cima++;
+            vectorPila[cima] = dato;
+        }
     }
 
     @Override
     public int desapilar() {
-        int fuera = vectorPila[cima];
-        cima--;
-        return fuera;
+        if(cima == -1){
+            System.out.println("Pila vacia. No hay elementos");
+            return 0;
+        }else{
+            int fuera = vectorPila[cima];
+            cima--;
+            return fuera;
+        }
     }
 
     @Override
@@ -47,7 +58,36 @@ public class Pila implements PilaME{
     
     @Override
     public boolean estaLlena(){
-        return vectorPila.length-1 == cima;
+        return MAX == cima;
+    }
+    
+    @Override
+    public void vaciarPila(){
+        cima = -1;
+    }
+    
+    @Override
+    public void mostrarPila(){
+        if(!estaVacia()){
+            String cadena = "";
+            for (int i=0; i<=cima; i++){
+                cadena = cadena + "\n"+vectorPila[i];
+            }
+            System.out.println("Datos de la pila:\n"+cadena);
+        }else{
+            System.out.println("Pila vacia. No hay elementos");
+        }
+    }
+    
+    @Override
+    public int ultimoPila(){
+        if(!estaVacia()){
+            System.out.println("Ultimo elemento: "+vectorPila[cima]);
+            return vectorPila[cima];
+        }else{
+            System.out.println("Pila vacia");
+            return 0;
+        }
     }
     
 }
