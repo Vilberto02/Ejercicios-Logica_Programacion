@@ -1,8 +1,8 @@
 /*
-Enunciado: Realice un programa que imprima "Capicúa" si un numero
-de entrada de 4 digitos es capicúa, o "No lo es" en caso contrario.
-Un numero es capicúa si se escribe igual al derecho y al revés.
-Por ejemplo, 1551 es un número capicúa.
+Enunciado: Realice un programa que imprima "Capicua" si un numero
+de entrada de 4 digitos es capicua, o "No lo es" en caso contrario.
+Un numero es capicua si se escribe igual al derecho y al revï¿½s.
+Por ejemplo, 1551 es un numero capicua.
 */
 #include<iostream>
 using namespace std;

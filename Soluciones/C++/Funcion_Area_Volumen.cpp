@@ -1,5 +1,5 @@
 /*
-Escribir una función que calcule al area de un circulo
+Escribir una funcion que calcule al area de un circulo
 y otra que calcule el columen de un cilindro usando 
 la primera funcion
 */

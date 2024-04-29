@@ -1,6 +1,6 @@
 /*
 Enunciado: Escribir un programa que pida al usuario
-dos numeros y muestre por pantalla su división. Si
+dos numeros y muestre por pantalla su division. Si
 el divisor es cero, el programa debe mostrar un 
 mensaje de error.
 */
