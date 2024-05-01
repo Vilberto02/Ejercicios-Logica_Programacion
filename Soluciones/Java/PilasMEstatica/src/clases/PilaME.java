@@ -18,4 +18,5 @@ public interface PilaME {
     public void vaciarPila();
     public void mostrarPila();
     public int ultimoPila();
+    public int primerElemento();
 }

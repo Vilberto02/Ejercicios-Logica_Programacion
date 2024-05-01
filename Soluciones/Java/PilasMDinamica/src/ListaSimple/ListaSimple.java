@@ -9,7 +9,7 @@ package ListaSimple;
  * @author Usuario
  */
 public class ListaSimple implements IListaSimple{
-    protected Nodo inicio, fin;
+    public Nodo inicio, fin;
     
     public ListaSimple(){
         inicio = null;
@@ -26,9 +26,13 @@ public class ListaSimple implements IListaSimple{
 
     @Override
     public void agregarAlFinal(int elemento) {
-        fin = new Nodo(elemento);
+        Nodo nuevoNodo = new Nodo(elemento);
         if(inicio == null){
-            inicio = fin;
+            inicio = nuevoNodo;
+            fin = nuevoNodo;
+        }else{
+            fin.siguiente = nuevoNodo;
+            fin = nuevoNodo;
         }
     }
 

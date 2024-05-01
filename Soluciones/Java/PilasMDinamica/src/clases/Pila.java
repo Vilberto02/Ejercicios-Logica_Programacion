@@ -20,7 +20,7 @@ public class Pila implements PilaMD{
     }
 
     @Override
-    public Integer tamanio() {
+    public int tamanio() {
         return lista.Tamanio();
     }
 
@@ -46,6 +46,16 @@ public class Pila implements PilaMD{
     @Override
     public boolean estaVacia() {
         return cima == -1;
+    }
+    
+    @Override
+    public int primerElemento(){
+        return lista.obtenerAlPrimero();
+    }
+    
+    @Override
+    public void mostrarElementos(){
+        System.out.println(lista.convertirCadena());
     }
     
 }

@@ -9,9 +9,11 @@ package clases;
  * @author Usuario
  */
 public interface PilaMD {
-    public Integer tamanio();
+    public int tamanio();
     public void apilar(int dato);
     public int desapilar();
     public int cima();
     public boolean estaVacia();
+    public int primerElemento();
+    public void mostrarElementos();
 }

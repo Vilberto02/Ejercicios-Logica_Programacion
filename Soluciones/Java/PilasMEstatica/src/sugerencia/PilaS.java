@@ -2,21 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package clases;
+package sugerencia;
+
+import clases.*;
 
 /**
  *
  * @author Usuario
  */
-public class Pila implements PilaME{
+public class PilaS implements PilaME{
     final int MAX;
     int vectorPila[];
     int cima;
     
-    public Pila(int tamanio){
-        this.MAX = tamanio-1;
-        this.vectorPila = new int[tamanio];
-        this.cima = -1;
+    public PilaS(int tamanio){
+        this.MAX = 20;
+        this.vectorPila = new int[MAX+1];
+        this.cima = 0;
     }
 
     @Override
@@ -38,7 +40,7 @@ public class Pila implements PilaME{
     //METODO ELIMINAR (POP)
     @Override
     public int desapilar() {
-        if(cima == -1){
+        if(cima == 0){
             System.out.println("La pila está vacia. No hay elementos");
             return 0;
         }else{
@@ -55,7 +57,7 @@ public class Pila implements PilaME{
 
     @Override
     public boolean estaVacia() {
-        if(cima == -1){
+        if(cima == 0){
             return true;
         }else{
             return false;
@@ -73,7 +75,7 @@ public class Pila implements PilaME{
     
     @Override
     public void vaciarPila(){
-        cima = -1;
+        cima = 0;
     }
     
     @Override

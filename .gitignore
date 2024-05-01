@@ -35,3 +35,5 @@
 /Soluciones/Java/RegistroEmpleadosV5/build/
 /Soluciones/Java/PilasMDinamica/nbproject/private/
 *.exe
+/Soluciones/Java/PilasMEstatica/build/
+/Soluciones/Java/PilasMDinamica/build/

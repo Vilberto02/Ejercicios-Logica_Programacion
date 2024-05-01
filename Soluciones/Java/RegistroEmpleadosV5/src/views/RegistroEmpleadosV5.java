@@ -161,6 +161,7 @@ public class RegistroEmpleadosV5 extends javax.swing.JFrame {
         NodoCL aux=frente;
         vaciar_tabla();
         num = 0;
+        tam = 0;
         while(aux != null){
             cod=aux.codigo;
             nom=aux.nombre;
@@ -172,6 +173,7 @@ public class RegistroEmpleadosV5 extends javax.swing.JFrame {
             su = df2.format(aux.sueldo);
             Object[] fila = {num, cod, nom, ape, se, su};
             num++;
+            tam++;
             miModelo.addRow(fila);
             aux=aux.sig;
         }
@@ -402,7 +404,7 @@ public class RegistroEmpleadosV5 extends javax.swing.JFrame {
         if(cod.equalsIgnoreCase("")){
             JOptionPane.showMessageDialog(this,"Ingrese un codigo por favor");
         } else {
-            pFound=Buscar(fincola,cod);
+            pFound=Buscar(frente,cod);
             if(pFound!=null){
                 TextFieldNombre.setText(pFound.nombre);
                 TextFieldApellidos.setText(pFound.apellidos);
