@@ -37,3 +37,9 @@
 *.exe
 /Soluciones/Java/PilasMEstatica/build/
 /Soluciones/Java/PilasMDinamica/build/
+/Soluciones/Java/Evaluador-Expresiones/nbproject/private/
+/Soluciones/Java/Colas/nbproject/private/
+/Soluciones/Java/ColasMEstatica/nbproject/private/
+/Soluciones/Java/ColasMDinamica/nbproject/private/
+/Soluciones/Java/ColasMEstatica/build/
+/Soluciones/Java/ColasMDinamica/build/
