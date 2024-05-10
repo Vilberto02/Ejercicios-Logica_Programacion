@@ -167,7 +167,8 @@ public class Principal {
         while(!auxiliar.estaVacia()){
             infija.apilar(auxiliar.desapilar()); // Se trasladan los elementos de la pila AUXILIAR a la pila INFIJA
         }
-        return analizador.estaVacia() || (analizador.tamanio()== 1 && analizador.cima() == 2); // Verifica si la pila ANALIZADOR esta vacia o si la pila ANALIZADOR solo contiene el numero 2
+        // Verifica si la pila ANALIZADOR esta vacia o si la pila ANALIZADOR solo contiene el numero 2
+        return analizador.estaVacia() || (analizador.tamanio()== 1 && analizador.cima() == 2); 
     }
     
     public static void imprimirPila(Pila<String> pila){
