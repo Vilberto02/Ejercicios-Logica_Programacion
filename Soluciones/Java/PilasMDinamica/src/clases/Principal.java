@@ -17,7 +17,7 @@ public class Principal {
         Scanner entrada = new Scanner(System.in);
         int opc, elemento;
         System.out.println("Estructura de datos - Pila con memoria dinamica");
-        Pila pila = new Pila();
+        Pila<Integer> pila = new Pila();
         System.out.println("Pilas\n"+
                             "0. Salir\n"+
                             "1. Verificar si la pila esta vacia\n"+
@@ -68,7 +68,7 @@ public class Principal {
                     if(pila.estaVacia()){
                         System.out.println("La pila esta vacia");
                     }else{
-                        System.out.println("Elementos de la pila en forma de lista enlazada");
+                        System.out.println("Elementos de la pila");
                         pila.mostrarElementos();
                     }
                     break;

@@ -9,8 +9,9 @@ import ListaSimple.ListaSimple;
 /**
  *
  * @author Usuario
+ * @param <T>
  */
-public class Cola implements ICola{
+public class Cola<T> implements ICola<T>{
     
     //FIFO: Se insertan elementos por el final (posterior) y se eliminan elementos por el inicio (frente o anterior).
     /*
@@ -19,7 +20,7 @@ public class Cola implements ICola{
     Cola de prioridades: Los elementos se insertan en cualquier posicion de la cola y se remueven solamente por el frente.
     Cola Doble: Los elementos se pueden añadir o quitar por cualquier extremo de la cola.
     */
-    ListaSimple lista;
+    ListaSimple<T> lista;
     int fin;
     
     public Cola(){
@@ -29,15 +30,15 @@ public class Cola implements ICola{
     
     //Encolar, añadir, entrar, push, enqueue.
     @Override
-    public void insertar(int elemento) {
+    public void insertar(T elemento) {
         lista.agregarAlFinal(elemento);
         fin++;
     }
     
     //Desencolar, eliminar, salir, pop. dequeue.
     @Override
-    public Integer eliminar() {
-        int fuera = lista.obtenerAlPrimero();
+    public T eliminar() {
+        T fuera = (T) lista.obtenerAlPrimero();
         lista.eliminarElPrimero();
         fin--;
         return fuera;
@@ -54,9 +55,9 @@ public class Cola implements ICola{
     
     //Consultar, front
     @Override
-    public Integer frente() {
+    public T frente() {
         if(fin != -1){
-            return lista.obtenerAlPrimero();
+            return (T) lista.obtenerAlPrimero();
         }
         return null;
     }
@@ -85,17 +86,17 @@ public class Cola implements ICola{
     }
 
     @Override
-    public Integer primerElementoCola() {
+    public T primerElementoCola() {
         if(fin != -1){
-            return lista.obtenerAlPrimero();
+            return (T) lista.obtenerAlPrimero();
         }
         return null;
     }
     
     @Override
-    public Integer ultimoElementoCola(){
+    public T ultimoElementoCola(){
         if (fin != -1) {
-            return lista.obtenerElUltimo();
+            return (T) lista.obtenerElUltimo();
         }
         return null;
     }

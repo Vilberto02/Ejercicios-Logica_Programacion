@@ -21,7 +21,7 @@ public class Principal {
         Scanner entrada = new Scanner(System.in);
         int opc, elemento;
         System.out.println("Estructura de datos - Cola con memoria dinamica");
-        Cola cola = new Cola();
+        Cola<Integer> cola = new Cola<>();
         System.out.println("Pilas\n"+
                             "0. Salir\n"+
                             "1. Verificar si la cola esta vacia\n"+
@@ -68,7 +68,7 @@ public class Principal {
                     if(cola.colaVacia()){
                         System.out.println("La cola esta vacia");
                     }else{
-                        System.out.println("Elementos de la cola en forma de lista enlazada");
+                        System.out.println("Elementos de la cola");
                         cola.mostrarCola();
                     }
                     break;

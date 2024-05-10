@@ -7,17 +7,18 @@ package ListaSimple;
 /**
  *
  * @author Usuario
+ * @param <T>
  */
-public class ListaSimple implements IListaSimple{
+public class ListaSimple<T> implements IListaSimple<T>{
     Nodo inicio, fin;
-    int dato;
+    T dato;
     
     public ListaSimple(){
         inicio = fin = null;
     }
 
     @Override
-    public void agregarAlInicio(int elemento) {
+    public void agregarAlInicio(T elemento) {
         Nodo nuevoNodo = new Nodo(elemento);
         if(inicio != null){
             nuevoNodo.siguiente = inicio;
@@ -29,7 +30,7 @@ public class ListaSimple implements IListaSimple{
     }
 
     @Override
-    public void agregarAlFinal(int elemento) {
+    public void agregarAlFinal(T elemento) {
         Nodo nuevoNodo = new Nodo(elemento);
         if(fin != null){
             fin.siguiente = nuevoNodo;
@@ -41,7 +42,7 @@ public class ListaSimple implements IListaSimple{
     }
 
     @Override
-    public void insertarEn(int indice, int elemento) {
+    public void insertarEn(int indice, T elemento) {
         int i = 1;
         if(estaVacia()){
             agregarAlFinal(elemento);
@@ -73,7 +74,7 @@ public class ListaSimple implements IListaSimple{
     }
 
     @Override
-    public boolean contiene(int elemento) {
+    public boolean contiene(T elemento) {
         Nodo temporal;
         temporal = inicio;
         while(temporal != null){
@@ -97,7 +98,7 @@ public class ListaSimple implements IListaSimple{
     }
 
     @Override
-    public int obtenerIndice(int elemento) {
+    public int obtenerIndice(T elemento) {
         if(estaVacia()){
             return -1;
         }else{
@@ -117,32 +118,32 @@ public class ListaSimple implements IListaSimple{
     }
 
     @Override
-    public Integer obtenerAlPrimero() {
+    public T obtenerAlPrimero() {
         if(inicio != null){
-            return inicio.dato;
+            return (T) inicio.dato;
         }
         return null;
     }
 
     @Override
-    public Integer obtenerElUltimo() {
+    public T obtenerElUltimo() {
         if(estaVacia()){
             return null;
         }else{
-            return fin.dato;
+            return (T) fin.dato;
         }
     }
 
     @Override
-    public Integer obtenerElemento(int indice) {
+    public T obtenerElemento(int indice) {
          int i = 1;
          if(indice == 0){
-             return inicio.dato;
+             return (T) inicio.dato;
          }else{
              Nodo temporal = inicio;
              while(temporal != null){
                  if(i == indice){
-                     return i;
+                     return (T) temporal.dato;
                  }
                  temporal = temporal.siguiente;
                  i++;
@@ -156,7 +157,7 @@ public class ListaSimple implements IListaSimple{
         String cadena = "";
         Nodo temporal = inicio;
         while (temporal != null) {            
-            cadena = cadena + "["+temporal.dato+"]->";
+            cadena = cadena + "["+temporal.dato+"]\t";
             temporal = temporal.siguiente;
         }
         return cadena;
@@ -186,7 +187,7 @@ public class ListaSimple implements IListaSimple{
     }
 
     @Override
-    public void eliminarElemento(int elemento) {
+    public void eliminarElemento(T elemento) {
         if(estaVacia()){
             inicio = fin = null;
         }else{
@@ -215,7 +216,7 @@ public class ListaSimple implements IListaSimple{
 
     @Override
     public void eliminarConIndice(int indice) {
-        int elemento = obtenerElemento(indice);
+        T elemento = obtenerElemento(indice);
         eliminarElemento(elemento);
     }
 

@@ -4,8 +4,9 @@ package clases;
 /**
  *
  * @author Usuario
+ * @param <T>
  */
-public class ListaDobleEnlazada implements ListaDE {
+public class ListaDobleEnlazada<T> implements ListaDE<T> {
     
     private NodoDoble inicio, fin;
     
@@ -19,7 +20,7 @@ public class ListaDobleEnlazada implements ListaDE {
     }
 
     @Override
-    public void agregarAlInicio(int elemento) {
+    public void agregarAlInicio(T elemento) {
         NodoDoble nuevoNodo = new NodoDoble(elemento);
         if(inicio == null){
             inicio = fin = nuevoNodo;
@@ -31,7 +32,7 @@ public class ListaDobleEnlazada implements ListaDE {
     }
 
     @Override
-    public void agregarAlFinal(int elemento) {
+    public void agregarAlFinal(T elemento) {
         if(!estaVacia()){
             NodoDoble nuevoNodo = new NodoDoble(elemento, null, fin);
             fin.sucesor = nuevoNodo;
@@ -83,7 +84,7 @@ public class ListaDobleEnlazada implements ListaDE {
     }
 
     @Override
-    public void insertarEn(int indice, int elemento) {
+    public void insertarEn(int indice, T elemento) {
         if(indice == 0){
             agregarAlInicio(elemento);
         }else{
@@ -109,7 +110,7 @@ public class ListaDobleEnlazada implements ListaDE {
     }
 
     @Override
-    public boolean contiene(int elemento) {
+    public boolean contiene(T elemento) {
         NodoDoble temporal = inicio;
         while(temporal != null){
             if(temporal.dato == elemento){
@@ -121,7 +122,7 @@ public class ListaDobleEnlazada implements ListaDE {
     }
 
     @Override
-    public int Tamanio() {
+    public int tamanio() {
         if (!estaVacia()){
             int indice = 0;
             NodoDoble temporal = inicio;
@@ -136,7 +137,7 @@ public class ListaDobleEnlazada implements ListaDE {
     }
 
     @Override
-    public int obtenerIndice(int elemento) {
+    public int obtenerIndice(T elemento) {
         if (!estaVacia()){
             int indice = 0;
             NodoDoble temporal = inicio;
@@ -151,26 +152,26 @@ public class ListaDobleEnlazada implements ListaDE {
     }
 
     @Override
-    public Integer obtenerAlPrimero() {
+    public T obtenerAlPrimero() {
         if (inicio != null){
-            return inicio.dato;
+            return (T) inicio.dato;
         }
         return null; //null
     }
 
     @Override
-    public Integer obtenerElUltimo() {
+    public T obtenerElUltimo() {
         if (fin != null){
-            return fin.dato;
+            return (T) fin.dato;
         }
         return null; //null
     }
 
     @Override
-    public Integer obtenerElemento(int indice) {
+    public T obtenerElemento(int indice) {
         int i=0;
         if (indice == 0){
-            return inicio.dato;
+            return (T) inicio.dato;
         }else{
             NodoDoble temporal = inicio;
             while(temporal != null && i<indice){
@@ -178,7 +179,7 @@ public class ListaDobleEnlazada implements ListaDE {
                 i++;
             }
             if (temporal != null){
-                return temporal.dato;
+                return (T) temporal.dato;
             }
             return null; //-1
         }
@@ -221,7 +222,7 @@ public class ListaDobleEnlazada implements ListaDE {
     }
 
     @Override
-    public void eliminarElemento(int elemento) {
+    public void eliminarElemento(T elemento) {
         if(!estaVacia()){
            if(inicio == fin && elemento == inicio.dato){ //Caso cuando se tiene un solo nodo.
                inicio = fin = null;
@@ -249,7 +250,7 @@ public class ListaDobleEnlazada implements ListaDE {
 
     @Override
     public void eliminarConIndice(int indice) {
-        Integer elemento = obtenerElemento(indice);
+        T elemento = obtenerElemento(indice);
         if (elemento != null){
             eliminarElemento(elemento);
             System.out.println("Elemento eliminado");

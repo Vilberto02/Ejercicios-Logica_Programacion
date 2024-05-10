@@ -8,12 +8,12 @@ package clases;
  *
  * @author Usuario
  */
-public interface PilaMD {
+public interface PilaMD<T> {
     public int tamanio();
-    public void apilar(int dato);
-    public int desapilar();
-    public int cima();
+    public void apilar(T dato);
+    public T desapilar();
+    public T cima();
     public boolean estaVacia();
-    public int primerElemento();
+    public T primerElemento();
     public void mostrarElementos();
 }

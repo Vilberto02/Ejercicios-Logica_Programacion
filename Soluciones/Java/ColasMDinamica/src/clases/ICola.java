@@ -7,15 +7,16 @@ package clases;
 /**
  *
  * @author Usuario
+ * @param <T>
  */
-public interface ICola {
-    public void insertar(int elemento);
-    public Integer eliminar();
+public interface ICola<T> {
+    public void insertar(T elemento);
+    public T eliminar();
     public boolean colaVacia();
-    public Integer frente();
+    public T frente();
     public int tamanio();
     public void vaciarCola();
     public void mostrarCola();
-    public Integer primerElementoCola();
-    public Integer ultimoElementoCola();
+    public T primerElementoCola();
+    public T ultimoElementoCola();
 }

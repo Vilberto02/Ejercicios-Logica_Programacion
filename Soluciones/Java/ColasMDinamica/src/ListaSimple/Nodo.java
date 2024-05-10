@@ -7,20 +7,21 @@ package ListaSimple;
 /**
  *
  * @author Usuario
+ * @param <T>
  */
-public class Nodo {
+public class Nodo<T> {
     Nodo siguiente;
-    int dato;
+    T dato;
     
     //Constructor para agregar al final.
-    public Nodo(int elemento){
+    public Nodo(T elemento){
         this.dato = elemento;
         this.siguiente = null;
     }
     
     
     //Constructor para agregar al inicio.
-    public Nodo(int elemento, Nodo siguiente){
+    public Nodo(T elemento, Nodo siguiente){
         this.dato = elemento;
         this.siguiente = siguiente;
     }

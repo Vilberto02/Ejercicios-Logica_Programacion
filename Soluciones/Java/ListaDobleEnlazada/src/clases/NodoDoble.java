@@ -7,16 +7,17 @@ package clases;
 /**
  *
  * @author Usuario
+ * @param <T>
  */
-public class NodoDoble {
-    public int dato;
+public class NodoDoble<T> {
+    public T dato;
     NodoDoble sucesor, predecesor;
     
-    public NodoDoble(int elemento){
+    public NodoDoble(T elemento){
         this(elemento,null,null);
     }
     
-    public NodoDoble(int elemento, NodoDoble siguiente, NodoDoble anterior){
+    public NodoDoble(T elemento, NodoDoble siguiente, NodoDoble anterior){
         dato=elemento;
         sucesor = siguiente;
         predecesor = anterior;

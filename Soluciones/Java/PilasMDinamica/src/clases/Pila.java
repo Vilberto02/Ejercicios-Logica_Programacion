@@ -9,9 +9,10 @@ import ListaSimple.ListaSimple;
 /**
  *
  * @author Usuario
+ * @param <T>
  */
-public class Pila implements PilaMD{
-    ListaSimple lista;
+public class Pila<T> implements PilaMD<T>{
+    ListaSimple<T> lista;
     int cima;
     
     public Pila(){
@@ -25,21 +26,21 @@ public class Pila implements PilaMD{
     }
 
     @Override
-    public void apilar(int dato) {
+    public void apilar(T dato) {
         cima++;
         lista.agregarAlFinal(dato);
     }
 
     @Override
-    public int desapilar() {
-        int fuera = lista.obtenerElUltimo();
+    public T desapilar() {
+        T fuera = lista.obtenerElUltimo();
         lista.eliminarElUltimo();
         cima--;
         return fuera;
     }
 
     @Override
-    public int cima() {
+    public T cima() {
         return lista.obtenerElUltimo();
     }
 
@@ -49,7 +50,7 @@ public class Pila implements PilaMD{
     }
     
     @Override
-    public int primerElemento(){
+    public T primerElemento(){
         return lista.obtenerAlPrimero();
     }
     
