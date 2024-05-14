@@ -239,7 +239,9 @@ public class ListaDobleEnlazada<T> implements ListaDE<T> {
                }
                if(temporal != null){
                    auxiliar.sucesor = temporal.sucesor;
-                   auxiliar = temporal.sucesor.predecesor;
+                   if(temporal.sucesor != null){
+                       temporal.sucesor.predecesor = auxiliar;
+                   }
                    if (temporal == fin){ //Caso si el elemento a eliminar es el ultimo nodo.
                        fin = auxiliar;
                    }

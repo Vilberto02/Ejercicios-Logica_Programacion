@@ -4,6 +4,7 @@
  */
 package clases;
 
+import java.util.Scanner;
 import java.util.Stack;
 
 /**
@@ -17,6 +18,18 @@ public class Principal {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        System.out.println("Este programa evalúa completamente");
+        System.out.println("expresiones entre paréntesis con");
+        System.out.println("operadores +, -, *, /, and ^");
+        System.out.println();
+        Scanner console = new Scanner(System.in);
+        System.out.print("expresión (enter para salir)? ");
+        String line = console.nextLine().trim();
+        while (line.length() > 0) {
+            evaluate(line);
+            System.out.print("expresión (enter para salir)? ");
+            line = console.nextLine().trim();
+        }
     }
     
     
