@@ -12,11 +12,12 @@ public class NodoDoble {
     public NodoDoble sucesor, predecesor;
     public Integer dato;
     
-    
+    /*--- Constructor ---*/
     public NodoDoble(Integer elemento){
         this(elemento, null, null);
     }
     
+    /*--- Constructor ---*/
     public NodoDoble(Integer elemento, NodoDoble anterior, NodoDoble siguiente){
         dato = elemento;
         sucesor = siguiente;

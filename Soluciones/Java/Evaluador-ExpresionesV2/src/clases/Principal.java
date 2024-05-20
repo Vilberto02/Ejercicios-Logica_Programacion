@@ -45,7 +45,7 @@ public class Principal {
         Scanner entrada = new Scanner(System.in);
         System.out.println("--- Evaluador de expresiones ---");
         System.out.println("Este programa evalua expresiones prefijas complejas que contenga operadores como +, -, *, ^, / y ()");
-        System.out.print("Expresion: ");
+        System.out.print("Expresion (enter para salir): ");
         
         // Eliminamos todas las ocurrencias de "//" en el texto que ingrese el usuario.
         String line = (entrada.nextLine()).replaceAll("//", "");
@@ -67,9 +67,9 @@ public class Principal {
                 imprimirPila(postOrder);
                 resolverPostfija(postOrder); // Resuelve la expresion usando la postfija
             } else {
-                System.out.println("Expresi1on ilegal"); // Si se tiene una expresion ilegal
+                System.out.println("Expresion ilegal"); // Si se tiene una expresion ilegal
             }
-            System.out.print("Ingrese la expresion: ");
+            System.out.print("Ingrese la expresion (enter para salir): ");
             line = (entrada.nextLine()).replaceAll("\\s", "");
         }
         

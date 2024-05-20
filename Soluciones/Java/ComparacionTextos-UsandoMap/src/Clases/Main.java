@@ -8,11 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class Principal {
+public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
         //Scanner console = new Scanner(System.in);
         darIntro();
+        //Ruta del archivo
         Scanner in1 = new Scanner(new File("C:\\Users\\Usuario\\Desktop\\Vilberto02-(Git)\\Ejercicios-Logica_Programacion\\Soluciones\\Java\\ComparacionTextos-UsandoMap\\src\\texto\\test1.txt"));
         Scanner in2 = new Scanner(new File("C:\\Users\\Usuario\\Desktop\\Vilberto02-(Git)\\Ejercicios-Logica_Programacion\\Soluciones\\Java\\ComparacionTextos-UsandoMap\\src\\texto\\test2.txt"));
         Map<String, Integer> map1 = getPalabras(in1);

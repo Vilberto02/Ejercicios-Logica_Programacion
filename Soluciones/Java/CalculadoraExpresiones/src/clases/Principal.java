@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package Clases;
+package clases;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +17,7 @@ public class Principal {
 
     /**
      */
+    
     /*Map que contiene como clave el operador y el valor del operador*/
     public static Map<String, Integer> operadorFueraPila = new HashMap<>();
     public static Map<String, Integer> operadorDentroPila = new HashMap<>();
@@ -40,45 +41,57 @@ public class Principal {
         operadorDentroPila.put("^", 3);
         operadorDentroPila.put("(", 0);
         
-        Scanner entrada = new Scanner(System.in);
-        System.out.println("Convertidor de expresion infija a prefija");
-        System.out.println("Ingrese la expresion: ");
-        String linea = entrada.nextLine().replaceAll("//", "");
-        while (!linea.isEmpty()) {
-            Stack<String> infija = obtenerInfija(linea);
-            if (infija != null && validarInfija(infija)) {
-                System.out.print("Infija: ");
-                imprimirPila(infija);
-                infija = invertirPila(infija); // Invierte la infija
-                Stack<String> preOrder = obtenerPostfija(infija); // Obtiene la postfija de la infija
-                preOrder = invertirPila(preOrder); // Obtiene la prefija inviertiendo la postfija
-                System.out.print("Prefija: ");
-                imprimirPila(preOrder);
-                infija = invertirPila(infija); // Vuelve a invertir la infija
-                Stack<String> postOrder = obtenerPostfija(infija); // Obtiene la postfija de la infija original
-                //System.out.print("Postfija: ");
-                //imprimirPila(postOrder);
-                resolverPostfija(postOrder); // Resuelve la expresion usando la postfija
-            } else {
-                System.out.println("Expresi1on ilegal"); // Si se tiene una expresion ilegal
-            }
-            System.out.print("Ingrese la expresion: ");
-            linea = (entrada.nextLine()).replaceAll("\\s", "");
+        System.out.println("Este programa evalua completamente");
+        System.out.println("expresiones entre parentesis con");
+        System.out.println("operadores +, -, *, /, y ^");
+        System.out.println();
+        Scanner console = new Scanner(System.in);
+        System.out.print("expresion (enter para salir)? ");
+        String line = console.nextLine().trim();
+        while (line.length() > 0) {
+            evaluar(line);
+            System.out.print("expresion (enter para salir)? ");
+            line = console.nextLine().trim();
         }
-        
     }
     
+    
+    // PRE: La entrada contiene una expresion infija.
+    // POS: Se consume la expresion y se devuelve el resultado.
+    public static void evaluar(String input){
+        Stack<String> infija = obtenerInfija(input);
+        if (infija != null && validarInfija(infija)) {
+            System.out.print("Infija: ");
+            imprimirPila(infija);
+            infija = invertirPila(infija); // Invierte la infija
+            Stack<String> prefija = obtenerPostfija(infija); // Obtiene la postfija de la infija invertida
+            prefija = invertirPila(prefija); // Obtiene la prefija inviertiendo la postfija de la infija invertida
+            System.out.print("Prefija: ");
+            imprimirPila(prefija);
+            infija = invertirPila(infija); // Vuelve a invertir la infija
+            Stack<String> postfija = obtenerPostfija(infija); // Obtiene la postfija de la infija original
+            resolverPostfija(postfija); // Resuelve la expresion usando la postfija
+        } else {
+            System.out.println("Expresion ilegal"); // Si se tiene una expresion ilegal
+        }
+    }
+    
+    // PRE: Recibe una cadena que representa una expresión matemática.
+    // POS: Devuelve una pila con la expresión convertida a notación infija ordenada
     public static Stack<String> obtenerInfija(String cadena){
         Stack<String> infija = new Stack<>();
         Stack<String> infijaOrdenado = new Stack<>();
         int ascii;
-        infija.push("(");
+        
+        infija.push("("); // Se agrega un paréntesis de apertura al comienzo de la pila.
+        
         for(int i = 0;i<cadena.length();i++){
-            // Convierte el caracter de la cadena (expresion) en la posicion i en código ASCII
-            ascii = (int) cadena.charAt(i);
             
-            // Verifica que el indice del caracter este entre [40, 57] menos el indice del caracter 44 (,) o que contenga el caracter 94 (^)
-            // [40, 57] comprende los operadores (, ), +, -, *, -, ., /, 0, 1,..., 9
+            ascii = (int) cadena.charAt(i); // Se convierte el carácter en código ASCII.
+            
+            // Verifica si el caracter este entre [40, 57] menos el indice del caracter 44 (,) o que contenga el caracter 94 (^)
+            // Es decir, verifica si el caracter es un operador o un numero.
+
             if((ascii >= 40 && ascii <= 57 && ascii != 44) || ascii == 94){
                 
                 // Verifica que los caracteres no sean numeros, es decir, que sean operadores. Tampoco acepta al punto decimal (.)
@@ -125,8 +138,10 @@ public class Principal {
     }
     
     public static boolean validarInfija(Stack<String> infija){
-        Stack<Integer> analizador = new Stack<>();
-        Stack<String> auxiliar = new Stack<>();
+        Stack<Integer> analizador = new Stack<>(); // Pila para analizar los paréntesis y operandos.
+        Stack<String> auxiliar = new Stack<>(); // Pila auxiliar para manipular la expresión infija.
+        
+        // Iterar a través de la expresión infija.
         while(!infija.isEmpty()){
             if(infija.peek().charAt(0) == ')'){ // Si la cima de la pila es el parentesis de cierre
                 boolean correct = false; // Para indicar si se encontro un par de parentesis correspondientes
@@ -168,7 +183,7 @@ public class Principal {
         // Recorre la pila PILA que recibe como parametro para imprimir sus elementos.
         // Luego, se desapila cada elemento para que depués sea apilado en la pila AUXILIAR
         while(!pila.isEmpty()){
-            System.out.print(pila.peek() + " -> ");
+            System.out.print(pila.peek() + " ");
             auxiliar.push(pila.pop());
         }
         
@@ -176,7 +191,7 @@ public class Principal {
         while(!auxiliar.isEmpty()){
             pila.push(auxiliar.pop());
         }
-        System.out.println("");
+        System.out.println();
     }
     
     public static Stack<String> invertirPila(Stack<String> pila){
