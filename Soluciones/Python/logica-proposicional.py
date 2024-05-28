@@ -34,3 +34,4 @@ for P, Q, R in product((True, False), repeat=3):
     print(f"[({str(P):<5} and {str(Q):<5}) -> ({str(R):<5} or not {str(P):<5})] and {str(R):<5} is {ifthen((P and Q), (R or not P)) and R}")
 
 print(f"La proposicion es una {evaluar(lista_valores)}")
+
