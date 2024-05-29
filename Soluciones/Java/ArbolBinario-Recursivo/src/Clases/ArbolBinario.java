@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Clases;
 
 import java.util.LinkedList;
@@ -60,26 +57,28 @@ public class ArbolBinario implements IArbol{
 
     @Override
     public int obtenerAltura() {
+        // Cuando esta vacio, su altura es 0.
         if(estaVacio()){
             return 0;
         }
         
+        // Se usa una cola para poder evaluar el nodo que ingresa primero en cada iteración, en este caso será el hijo izquierdo (una vez que se haya eliminado la raiz)
+        // luego el derecho.
         Queue<NodoArbol> colaNodo = new LinkedList<>();
         colaNodo.add(raiz);
         int altura = 0;
         
-        
-        while(!colaNodo.isEmpty()){
-            int tamanio = colaNodo.size();
-            altura++;
-            /*Recorro*/
+        while(!colaNodo.isEmpty()){ // Dado que se estan eliminando elementos de la cola, el bucle se cierra cuando la cola esta vacia.
+            int tamanio = colaNodo.size(); // Tamaño de la cola. Varia de acuerdo a los nodos hijos que encuentra.
+            altura++; // Aumenta en cada iteracion, debido a que se están encontrando nodos hijos.
+            /*Recorre la cola, su tamaño va variando segun los nodos hijos que hayan del nodo padre*/
             for (int i = 0; i < tamanio; i++) {
-                NodoArbol nodoActual = colaNodo.poll();
-                if(nodoActual.hijoizquierdo != null){
+                NodoArbol nodoActual = colaNodo.poll(); // Se eliminan el primer nodo de la cola, sucesivamente.
+                if(nodoActual.hijoizquierdo != null){ // Verifica si el nodo actual contiene hijos
                     colaNodo.add(nodoActual.hijoizquierdo);
                 }
-                
-                if(nodoActual.hijoderecho != null){
+                // Verifica si el nodo actual contiene hijos
+                if(nodoActual.hijoderecho != null){ 
                     colaNodo.add(nodoActual.hijoderecho);
                 }
             }
@@ -89,94 +88,61 @@ public class ArbolBinario implements IArbol{
     }
     
     @Override
-    public boolean eliminar(Integer d) {
-        NodoArbol auxiliar=raiz;
-        NodoArbol padre=raiz;
-        boolean esHijoIzq=true;
-        while(auxiliar.dato != d){
-            padre=auxiliar;
-            if(d<auxiliar.dato){
-                esHijoIzq=true;
-                auxiliar=auxiliar.hijoizquierdo;
-            }else{
-                esHijoIzq=false;
-                auxiliar=auxiliar.hijoderecho;
-            }
-            if(auxiliar==null){
-                return false;
-            }
-        }//Fin del while
-        if(auxiliar.hijoizquierdo==null && auxiliar.hijoderecho==null){
-            if(auxiliar==raiz){
-                raiz=null;
-            }else if(esHijoIzq){
-                padre.hijoizquierdo=null;
-            }else{
-                padre.hijoderecho=null;
-            }
-        }else if(auxiliar.hijoderecho==null){
-            if(auxiliar==raiz){
-                raiz=auxiliar.hijoizquierdo;
-            }else if(esHijoIzq){
-                padre.hijoizquierdo=auxiliar.hijoizquierdo;
-            }else{
-                padre.hijoderecho=auxiliar.hijoizquierdo;
-            }
-        }else if(auxiliar.hijoizquierdo==null){
-            if(auxiliar==raiz){
-                raiz=auxiliar.hijoderecho;
-            }else if(esHijoIzq){
-                padre.hijoizquierdo=auxiliar.hijoderecho;
-            }else{
-                padre.hijoderecho=auxiliar.hijoizquierdo;
-            }
-        }else{
-            NodoArbol reemplazo=obtenerNodoReemplazo(auxiliar);
-            if(auxiliar==raiz){
-                raiz=reemplazo;
-            }else if(esHijoIzq){
-                padre.hijoizquierdo=reemplazo;
-            }else{
-                padre.hijoderecho=reemplazo;
-            }
-            reemplazo.hijoizquierdo=auxiliar.hijoizquierdo;
-        }
-        return true;
+    public NodoArbol eliminar(Integer clave) {
+        raiz = eliminarNodoRecursivo(raiz, clave);
+        return raiz;
     }
     
-    @Override
-    public NodoArbol obtenerNodoReemplazo(NodoArbol nodoReemp){
-        NodoArbol reemplazarPadre=nodoReemp;
-        NodoArbol reemplazo=nodoReemp;
-        NodoArbol auxiliar=nodoReemp.hijoderecho;
-        while(auxiliar!=null){
-            reemplazarPadre=reemplazo;
-            reemplazo=auxiliar;
-            auxiliar=auxiliar.hijoizquierdo;
+    public NodoArbol eliminarNodoRecursivo(NodoArbol raiz, Integer clave){
+        if(raiz == null){
+            return raiz;
         }
-        if(reemplazo!=nodoReemp.hijoderecho){
-            reemplazarPadre.hijoizquierdo=reemplazo.hijoderecho;
-            reemplazo.hijoderecho=nodoReemp.hijoderecho;
+        
+        if(clave < raiz.dato){
+            raiz.hijoizquierdo = eliminarNodoRecursivo(raiz.hijoizquierdo, clave);
+        } else if(clave > raiz.dato){
+            raiz.hijoderecho = eliminarNodoRecursivo(raiz.hijoderecho, clave);
+        }else{
+            if(raiz.hijoizquierdo == null){
+                return raiz.hijoderecho;
+            }else if(raiz.hijoderecho == null){
+                return raiz.hijoizquierdo;
+            }
+            
+            raiz.dato = minimoValorNodo(raiz.hijoderecho).dato;
+            raiz.hijoderecho = eliminarNodoRecursivo(raiz.hijoderecho, raiz.dato);
         }
-        System.out.println("El nodo reemplazo es "+ reemplazo);
-        return reemplazo;
+        
+        return raiz;
+    }
+    
+    public NodoArbol minimoValorNodo(NodoArbol nodo){
+        NodoArbol actual = nodo;
+        while(actual.hijoizquierdo != null){
+            actual = actual.hijoizquierdo;
+        }
+        
+        return actual;
     }
 
 
     @Override
     public int numeroElementos() {
+        // Si el arbol esta vacio retorna 0
         if (raiz == null) {
             return 0;
         }
 
         Queue<NodoArbol> cola = new LinkedList<>();
-        cola.add(raiz);
+        cola.add(raiz); // Añade al primer elemento, en este caso es la raiz.
         int contador = 0;
-
+        
+        // Verifica cada nodo. Si tiene
         while (!cola.isEmpty()) {
-            NodoArbol nodoActual = cola.poll();
+            NodoArbol nodoActual = cola.poll(); // Elimina al primer elemento de la cola.
             contador++;
-
+            
+            // Verifica si el nodo actual tiene hijos.
             if (nodoActual.hijoizquierdo != null) {
                 cola.add(nodoActual.hijoizquierdo);
             }
@@ -190,7 +156,7 @@ public class ArbolBinario implements IArbol{
     
     @Override
     public void postOrden(NodoArbol r){
-        /*Izquierda-Derecha-Raiz*/
+        //Izquierda-Derecha-Raiz
         if(r != null){
             postOrden(r.hijoizquierdo);
             postOrden(r.hijoderecho);
@@ -201,6 +167,7 @@ public class ArbolBinario implements IArbol{
     @Override
     public void preOrden(NodoArbol r){
         if(r != null){
+            //Raiz-Izquierda-Derecha
             System.out.print(r.dato + " ");
             preOrden(r.hijoizquierdo);
             preOrden(r.hijoderecho);
@@ -210,9 +177,31 @@ public class ArbolBinario implements IArbol{
     @Override
     public void entreOrden(NodoArbol r){
         if(r != null){
+            //Izquierda-Raiz-Derecha
             entreOrden(r.hijoizquierdo);
             System.out.print(r.dato + " ");
             entreOrden(r.hijoderecho);
+        }
+    }
+    
+    @Override
+    // Método recursivo para buscar un nodo en el árbol
+    public NodoArbol buscarNodo(int d) {
+        return buscarNodoRecursivo(raiz, d);
+    }
+    
+    // Buscar nodo recursivo
+    private NodoArbol buscarNodoRecursivo(NodoArbol actual, int d) {
+        // Caso en el que el nodo actual es nulo o sea igual al elemento buscado.
+        if (actual == null || actual.dato == d) {
+            return actual;
+        }
+        
+        // Caso en el que el dato buscado es menor que el nodo actual
+        if (d < actual.dato) {
+            return buscarNodoRecursivo(actual.hijoizquierdo, d);
+        } else {
+            return buscarNodoRecursivo(actual.hijoderecho, d);
         }
     }
 }
